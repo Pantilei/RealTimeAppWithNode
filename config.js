@@ -7,5 +7,7 @@ module.exports = {
       user: "ianulov.pantilei@gmail.com",
       pass: "Panian007"
     }
-  }
+  },
+  dbConnstring: "mongodb://127.0.0.1:27017/ColaborativeCodeEditor",
+  sessionKey: "HelloColaborativeCode"
 };

@@ -1,9 +1,22 @@
 var express = require("express");
 var router = express.Router();
+var passport = require("passport");
 
-router.get("/login", function(req, res, next) {
-  res.render("login", { title: "Colaborative code" });
-});
+router
+  .route("/login")
+  .get(function(req, res, next) {
+    res.render("login", { title: "Login your account" });
+  })
+  .post(
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/about",
+      failureFlash: true
+    })
+    /* function(req, res) {
+      res.redirect("/");
+    } */
+  );
 
 router
   .route("/register")
@@ -41,5 +54,10 @@ router
       });
     }
   });
+
+router.get("/logout", function(req, res, next) {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = router;

@@ -9,6 +9,9 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var session = require("express-session");
 
+// This one added
+const flash = require("connect-flash");
+
 require("./passport");
 var config = require("./config");
 
@@ -16,7 +19,7 @@ var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth");
 
 //connect the database
-mongoose.connect(config.dbConnstring);
+mongoose.connect(config.dbConnstring, { useMongoClient: true });
 global.User = require("./models/user");
 
 var app = express();
@@ -34,8 +37,7 @@ app.use(
   session({
     secret: config.sessionKey,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    saveUninitialized: true
   })
 );
 
@@ -45,6 +47,17 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(expressValidator());
 
+// if user is authenticated we create session variable name and we pass request user into that one.
+//within our application we can use locals.user
+app.use(function(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.locals.user = req.user;
+  }
+  next();
+});
+
+//This one added
+app.use(flash());
 app.use("/", indexRouter);
 app.use("/", authRouter);
 

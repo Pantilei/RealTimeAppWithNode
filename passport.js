@@ -17,10 +17,11 @@ passport.deserializeUser(function(id, done) {
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email"
+      usernameField: "email",
+      passwordField: "password"
     },
     function(username, password, done) {
-      User.findOne({ email: username }, function(err, done) {
+      User.findOne({ email: username }, function(err, user) {
         if (err) return done(err);
         if (!user) {
           return done(null, false, {
@@ -29,9 +30,10 @@ passport.use(
         }
         if (!user.validPassword(password)) {
           return done(null, false, {
-            message: "INcorrect username or password"
+            message: "Incorrect username or password"
           });
         }
+
         return done(null, user);
       });
     }

@@ -65,7 +65,7 @@
 <script src="/plugins/ot/ot.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 {{!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> --}}
-<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+<script src="https://peer-server-pantilei.herokuapp.com/peer/peer.js"></script>
 
 <script>
 
@@ -137,7 +137,14 @@
 
 
     // PeerJS object
-    var peer = new Peer(username + roomId);
+    var peer = new Peer(username + roomId, {
+        host: 'peer-server-pantilei.herokuapp.com';
+        path: '/peerjs',
+        port: 443,
+        secure: true,
+        key: 'colaborativeCode',
+        debug: true
+    });
 
     peer.on('open', function () {
         $('#my-id').text(peer.id);

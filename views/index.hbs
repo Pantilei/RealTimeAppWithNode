@@ -1,5 +1,23 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="jumbotron">
+    <h1 class="display-4">{{title}}</h1>
+    <p class="lead">Welcome to {{title}}</p>
+    <hr class="my-4">
+    <p>This application was designed to explain codding in real time. How does it work?</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">First of all you need to login, or by using your facebook account, or by
+            registering.</li>
+        <li class="list-group-item">After authorization, in home page, you will have access to create a task button.
+        </li>
+        <li class="list-group-item">After creating task you will be forwarded to room with random generated ID, you can
+            find this ID in URL address.</li>
+        <li class="list-group-item">You can share this URL adress with any student or student group you want to teach
+            codding.</li>
+        <li class="list-group-item">All students who pass trough shared link will be directed to your room.</li>
+        <li class="list-group-item">There you can find styled real time code editor(currently only JavaScript), Chat
+            room where students can ask questions, and real time video call with any student. </li>
+        <li class="list-group-item">Currently works only in google Chrome browsers.</li>
+    </ul>
+</div>
 
 {{#if user}}
 <a href="/createTask" class="btn btn-primary">Create New Task</a>

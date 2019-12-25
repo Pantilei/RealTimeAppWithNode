@@ -58,3 +58,8 @@ body {
 .call {
   padding: 1% 15%;
 }
+
+textarea {
+  height: 700px;
+  width: 500px;
+}

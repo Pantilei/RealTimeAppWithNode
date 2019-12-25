@@ -38,7 +38,7 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <ul class="media-list p-0" id="chatbox-listMessages" style="height: 100px; overflow-y: scroll">
+                    <ul class="media-list p-0" id="chatbox-listMessages" style="height: 400px; overflow-y: scroll">
 
                     </ul>
                 </div>
@@ -64,13 +64,12 @@
 
 <script src="/plugins/ot/ot.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-{{!-- <script src="http://cdn.peerjs.com/0.3/peer.js"></script> --}}
 <script src="https://peer-server-pantilei.herokuapp.com/peer/peer.js"></script>
 
 <script>
 
 
-
+    //Code Editor
     var EditorClient = ot.EditorClient;
     var SocketIOAdapter = ot.SocketIOAdapter;
     var CodeMirrorAdapter = ot.CodeMirrorAdapter;
@@ -78,7 +77,8 @@
     var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
         lineNumbers: true,
         theme: "monokai"
-    })
+    });
+    editor.setSize('100%', '1200px');
 
     var socket = io.connect();
 
@@ -97,7 +97,7 @@
     socket.on('doc', function (obj) {
         init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket))
     })
-
+    //ChatBox
     var username = $("#chatbox-username").val();
     if (username === "") {
         var userId = Math.floor(Math.random() * 9999).toString();

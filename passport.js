@@ -46,7 +46,8 @@ passport.use(
     {
       clientID: "453953978655278",
       clientSecret: "fad88f39a0fe58a5ebc33f35b9ea6461",
-      callbackURL: "http://localhost:3000/auth/facebook/callback",
+      callbackURL:
+        "https://code-colaborative-school.herokuapp.com/auth/facebook/callback",
       profileFields: ["id", "displayName", "email"]
     },
     function(token, refreshToken, profile, done) {

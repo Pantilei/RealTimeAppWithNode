@@ -10,7 +10,7 @@ router
   .post(
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/about",
+      failureRedirect: "/login",
       failureFlash: true
     })
     /* function(req, res) {
@@ -59,5 +59,17 @@ router.get("/logout", function(req, res, next) {
   req.logout();
   res.redirect("/");
 });
+
+router.get(
+  "/auth/facebook",
+  passport.authenticate("facebook", { scope: "email" })
+);
+router.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
 
 module.exports = router;

@@ -3,6 +3,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+//express-validation is a middleware that validates the body, params, query, headers and cookies
+//of a request and returns a response with errors; if any of the configured validation rules fail.
 var expressValidator = require("express-validator");
 
 var mongoose = require("mongoose");
@@ -17,10 +19,12 @@ var config = require("./config");
 
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth");
+var taskRouter = require("./routes/task");
 
 //connect the database
-mongoose.connect(config.dbConnstring, { useMongoClient: true });
+mongoose.connect(config.dbConnstring);
 global.User = require("./models/user");
+global.Task = require("./models/task");
 
 var app = express();
 
@@ -51,6 +55,7 @@ app.use(expressValidator());
 //within our application we can use locals.user
 app.use(function(req, res, next) {
   if (req.isAuthenticated()) {
+    //console.log("User: ", req.user);
     res.locals.user = req.user;
   }
   next();
@@ -60,6 +65,7 @@ app.use(function(req, res, next) {
 app.use(flash());
 app.use("/", indexRouter);
 app.use("/", authRouter);
+app.use("/", taskRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
